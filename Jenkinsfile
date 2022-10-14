@@ -1,18 +1,31 @@
 pipeline {
     agent  { label 'TERRAFORM' }
+    tools {
+        terraform 'terraform'
+    }
+
     stages {
         stage('git') {
             steps {
-                git branch: 'master', 
-                url: 'https://github.com/gopivurata/terraform.git'
+                git branch: 'main', 
+                       url: 'https://github.com/gopivurata/terraform.git'
             }
 
         }
-        stage('build') {
+        stage('init') {
             steps {
-                sh 'terraform plan https://github.com/gopivurata/terraform/blob/main/s3bucket.tf'
+                sh 'terraform init'
             }
+
         }
-    }
+        stage('apply') {
+            steps {
+                sh 'terraform apply --auto-approve'
+            }
+
+        }
+        
+     }
+     
 
 }
