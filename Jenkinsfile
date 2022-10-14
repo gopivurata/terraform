@@ -1,14 +1,10 @@
 pipeline {
-    agent  { label 'TERRAFORM' }
-    tools {
-        terraform 'terraform'
-    }
-
+    agent  { label 'terraform' }
+    
     stages {
-        stage('git') {
+        stage('git checkout') {
             steps {
-                git branch: 'main', 
-                       url: 'https://github.com/gopivurata/terraform.git'
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/gopivurata/terraform.git']]])
             }
 
         }
@@ -20,7 +16,7 @@ pipeline {
         }
         stage('apply') {
             steps {
-                sh 'terraform apply --auto-approve'
+                sh 'terraform apply -auto-approve'
             }
 
         }
