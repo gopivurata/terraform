@@ -10,7 +10,7 @@ pipeline {
         }
         stage('build') {
             steps {
-                sh 'terraform plan /s3buckrt.tf'
+                sh 'terraform plan https://github.com/gopivurata/terraform/blob/main/s3bucket.tf'
             }
         }
     }
