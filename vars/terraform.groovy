@@ -17,9 +17,15 @@ def call(){
         }
         stage('apply') {
             steps {
-                sh 'terraform apply -auto-approve'
-              //  sh 'terraform destroy -auto-approve'
+               // sh 'terraform apply -auto-approve'
+                sh 'terraform destroy -auto-approve'
             }
 
         }
+        
+     }
+     
+
+}
+
 }
